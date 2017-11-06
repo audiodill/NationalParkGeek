@@ -1,0 +1,23 @@
+﻿@using Capstone.Web.Models;
+@model List<Park>
+@{
+    ViewBag.Title = "Home";
+}
+
+<h2></h2>
+
+@foreach (var item in Model)
+{
+    <div class="container parkList">
+        @if(Session["degree"] == "Celsius")
+        {
+        <a href="@Url.Action("Celsius", "Home", new {id = item.ParkCode})"><img src="@Url.Content("/Content/img/Parks/" + item.ParkCode + ".jpg")" class="pull-left"></a>
+        }
+        else{
+        <a href="@Url.Action("Farenheit", "Home", new {id = item.ParkCode})"><img src="@Url.Content("/Content/img/Parks/" + item.ParkCode + ".jpg")" class="pull-left"></a>
+
+        }
+        <h3>@item.ParkName</h3>
+        <p>@item.ParkDescription</p>
+    </div>
+}

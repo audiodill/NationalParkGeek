@@ -1,0 +1,26 @@
+﻿@using Capstone.Web.Models
+@model List<Survey>
+@{
+    ViewBag.Title = "ParkFavorites";
+}
+
+<h2> Park Favorites </h2>
+
+@foreach (var item in Model)
+{
+    <table class="surveyFav">
+        <tr>
+           <td>
+               <a href="@Url.Action("Detail", "Home", new { id = item.ParkCode })"><img src="@Url.Content("/Content/img/Parks/" + item.ParkCode + ".jpg")"></a>
+
+           </td>
+            <td>
+                <h3>@item.ParkName</h3>
+            </td>
+            <td>
+                <p>@item.SurveyCount total surveys taken</p>
+            </td>
+        </tr>
+    </table>
+    
+}

@@ -1,0 +1,110 @@
+﻿@using Capstone.Web.Models;
+@model Dictionary<Park, List<Weather>>
+@{
+    ViewBag.Title = "Detail";
+}
+
+@foreach (var item in Model)
+{
+    <h2 class="text-center">@item.Key.ParkName</h2>
+    <img src="@Url.Content("~/Content/img/Parks/" + item.Key.ParkCode + ".jpg")" class="pull-left detailPic" />
+
+    <table>
+        <tr>
+            <td>Entry Fee: </td>
+            <td>$@item.Key.EntryFee</td>
+        </tr>
+        <tr>
+            <td>State: </td>
+            <td>@item.Key.State</td>
+        </tr>
+        <tr>
+            <td>Acreage: </td>
+            <td>@item.Key.Acreage.ToString("N0")</td>
+        </tr>
+        <tr>
+            <td>Elevation: </td>
+            <td>@item.Key.ElevationInFeet.ToString("N0") ft.</td>
+        </tr>
+        <tr>
+            <td>Miles of Trail: </td>
+            <td>@item.Key.MilesOfTrail.ToString("N0")</td>
+        </tr>
+        <tr>
+            <td>Number of Campsites: </td>
+            <td>@item.Key.NumberOfCampsites.ToString("N0")</td>
+        </tr>
+        <tr>
+            <td>Climate: </td>
+            <td>@item.Key.Climate</td>
+        </tr>
+        <tr>
+            <td>Year Founded: </td>
+            <td>@item.Key.YearFounded</td>
+        </tr>
+        <tr>
+            <td>Visitors per Year: </td>
+            <td>@item.Key.AnnualVisitorCount.ToString("N0")</td>
+        </tr>
+        <tr>
+            <td>Number of Animal Species: </td>
+            <td>@item.Key.NumberOfAnimalSpecies.ToString("N0")</td>
+        </tr>
+    </table>
+    <br />
+    <h4 class="clearfix">"@item.Key.InspirationalQuote" - @item.Key.InspirationalQuoteSource</h4>
+    <br />
+    <h3>Description</h3>
+    <p>@item.Key.ParkDescription</p>
+    <div class="container">
+        <ul class="nav nav-tabs">
+            @if (Session["degree"] == "Celsius")
+            {
+                <li>@Html.ActionLink("Farenheit", "Farenheit", new { id = item.Key.ParkCode })</li>
+                <li class="active">@Html.ActionLink("Celsius", "Celsius", new { id = item.Key.ParkCode })</li>
+            }
+            else
+            {
+                <li class="active">@Html.ActionLink("Farenheit", "Farenheit", new { id = item.Key.ParkCode })</li>
+                <li>@Html.ActionLink("Celsius", "Celsius", new { id = item.Key.ParkCode })</li>
+            }
+            
+        </ul>
+    </div>
+    <div class="text-center">
+        @for (int i = 0; i < item.Value.Count; i++)
+        {
+        if (i == 0)
+        {
+        <div class="pull-left weatherToday text-center">
+            <h4>Today</h4>
+            <img src="@Url.Content("~/Content/img/Weather/" + item.Value[i].Forecast + ".png")" />
+            <p><strong>High</strong> @item.Value[i].High &ordm;@item.Value[i].DegreeType <strong>Low</strong> @item.Value[i].Low &ordm;@item.Value[i].DegreeType</p>
+            @for(int j = 0; j < item.Value[i].Advisory.Count; j++)
+            {
+                <p>@item.Value[i].Advisory[j]</p>
+            }
+        </div>
+        }
+        else
+        {
+        <table class="weatherForWeek pull-left">
+            <tr>
+                <td><img src="@Url.Content("~/Content/img/Weather/" + item.Value[i].Forecast + ".png")" /></td>
+            </tr>
+            <tr>
+                <td><strong>High</strong> @item.Value[i].High &ordm;@item.Value[i].DegreeType</td>
+            </tr>
+            <tr>
+                <td><strong>Low</strong> @item.Value[i].Low &ordm;@item.Value[i].DegreeType</td>
+            </tr>
+
+        </table>
+        }
+
+        }
+    </div>
+    <div class="clearfix"></div>
+}
+
+
