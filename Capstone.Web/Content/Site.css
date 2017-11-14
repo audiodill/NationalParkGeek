@@ -54,6 +54,10 @@ table {
     height: auto;
 }
 
+.surveyFav{
+    margin: 5px;
+}
+
 .surveyFav img {
     max-width: 200px;
     height: auto;
