@@ -54,6 +54,10 @@ table {
     height: auto;
 }
 
+.surveyList{
+    margin-bottom: 20px;
+}
+
 .surveyFav{
     margin: 5px;
 }
